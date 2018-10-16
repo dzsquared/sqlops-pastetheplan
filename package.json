@@ -12,18 +12,19 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:extension.sayHello",
-        "onCommand:extension.pastePlan"
+        "onCommand:extension.pastePlan",
+        "onCommand:extension.pastePlanCopy"
     ],
     "main": "./out/extension",
     "contributes": {
-        "commands": [{
-            "command": "extension.sayHello",
-            "title": "Hello World"
-        },
+        "commands": [
         {
             "command": "extension.pastePlan",
-            "title": "Send to Paste the Plan"
+            "title": "Paste the Plan: Open in Browser"
+        },
+        {
+            "command": "extension.pastePlanCopy",
+            "title": "Paste the Plan: Copy Link"
         }]
     },
     "scripts": {

@@ -2,32 +2,35 @@
 import * as vscode from 'vscode';
 import * as request from 'request-promise-native';
 import * as sqlops from 'sqlops';
-import { open } from 'fs';
+import * as clipboardy from 'clipboardy';
 
 export function activate(context: vscode.ExtensionContext) {
 
-    console.log('Congratulations, your extension "pastetheplan" is now active!');
-
-    context.subscriptions.push(vscode.commands.registerCommand('extension.sayHello', () => {
-        vscode.window.showInformationMessage('Hello World!');
-    }));
-
-    // context.subscriptions.push(vscode.commands.registerCommand('extension.pastePlan', () => {
-    //     vscode.window.showInformationMessage('started paste the plan');
-    // }));
-
     var pasteThePlan = async () => {
-        vscode.window.showInformationMessage('starting the ptp');
         if (vscode.window.activeTextEditor.document.languageId === 'xml') {
             var planXML = vscode.window.activeTextEditor.document.getText();
-            vscode.window.showInformationMessage('GOT THE XML');
-            sendToPTP(planXML);
+            var planLink = await sendToPTP(planXML);
+            vscode.window.showInformationMessage('Paste the Plan window opening in your browser.');
+            vscode.commands.executeCommand('vscode.open', vscode.Uri.parse(planLink));
         } else {
-            vscode.window.showInformationMessage('sorry, Paste the Plan connector is supported for XML files only');
+            vscode.window.showErrorMessage('Sorry, Paste the Plan connector is supported for XML files only.');
         }
     };
     var disposable_ptp = vscode.commands.registerCommand('extension.pastePlan', pasteThePlan);
     context.subscriptions.push(disposable_ptp);
+
+    var pasteThePlanCopy = async () => {
+        if (vscode.window.activeTextEditor.document.languageId === 'xml') {
+            var planXML = vscode.window.activeTextEditor.document.getText();
+            var planLink = await sendToPTP(planXML);
+            clipboardy.write(planLink);
+            vscode.window.showInformationMessage('Paste the Plan link copied to clipboard.');
+        } else {
+            vscode.window.showErrorMessage('Sorry, Paste the Plan connector is supported for XML files only.');
+        }
+    };
+    var disposable_ptpcopy = vscode.commands.registerCommand('extension.pastePlanCopy', pasteThePlanCopy);
+    context.subscriptions.push(disposable_ptpcopy);
 
     async function sendToPTP(planXML){
         try {
@@ -36,17 +39,15 @@ export function activate(context: vscode.ExtensionContext) {
             body: {"queryplan_xml": planXML},
             json: true
         };
-        const pastedPlan = await request.post(options); 
-        vscode.window.showInformationMessage('called PTP');      
-        vscode.window.showInformationMessage(pastedPlan.id);
+        const pastedPlan = await request.post(options);      
+        //vscode.window.showInformationMessage(pastedPlan.id);
         var newPTPlink = 'https://www.brentozar.com/pastetheplan/?id='+pastedPlan.id;
-        vscode.commands.executeCommand('vscode.open', vscode.Uri.parse(newPTPlink));
+        return newPTPlink;
         } catch (err) {
             vscode.window.showErrorMessage(err);
         }
     }
 }
 
-// this method is called when your extension is deactivated
 export function deactivate() {
 }
