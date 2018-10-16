@@ -1,0 +1,43 @@
+{
+    "name": "pastetheplan",
+    "displayName": "pastetheplan",
+    "description": "Paste the Plan Connector",
+    "version": "0.0.1",
+    "publisher": "drewsk",
+    "engines": {
+        "vscode": "^1.28.0",
+        "sqlops": "*"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onCommand:extension.sayHello",
+        "onCommand:extension.pastePlan"
+    ],
+    "main": "./out/extension",
+    "contributes": {
+        "commands": [{
+            "command": "extension.sayHello",
+            "title": "Hello World"
+        },
+        {
+            "command": "extension.pastePlan",
+            "title": "Send to Paste the Plan"
+        }]
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install && node ./node_modules/sqlops/bin/install",
+        "test": "npm run compile && node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "typescript": "^2.6.1",
+        "vscode": "^1.1.6",
+        "sqlops": "github:anthonydresser/sqlops-extension-sqlops",
+        "@types/node": "^7.0.43",
+        "@types/mocha": "^2.2.42"
+    }
+}
