@@ -19,19 +19,18 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.window.showInformationMessage('starting the ptp');
         var planXML = vscode.window.activeTextEditor.document.getText();
         vscode.window.showInformationMessage('GOT THE XML');
-        // var options = {
-        //     uri: 'https://jeczi7iqj8.execute-api.us-west-2.amazonaws.com/prod/',
-        //     body: {"queryplan_xml": planXML},
-        //     json: true
-        // };
-        // try {
-        //     console.log('Pasting the plan.');
-        //     const pastedPlan = await request.post(planXML); 
-        //     vscode.window.showInformationMessage("called PTP");      
-        //     vscode.window.showInformationMessage(pastedPlan.id)
-        // } catch (err) {
-        //     vscode.window.showErrorMessage(err);
-        // }
+        try {
+                var options = {
+                uri: 'https://jeczi7iqj8.execute-api.us-west-2.amazonaws.com/prod/',
+                body: {"queryplan_xml": planXML},
+                json: true
+            };
+            const pastedPlan = await request.post(options); 
+            vscode.window.showInformationMessage('called PTP');      
+            vscode.window.showInformationMessage(pastedPlan.id)
+        } catch (err) {
+            vscode.window.showErrorMessage(err);
+        }
     };
     var disposable_ptp = vscode.commands.registerCommand('extension.pastePlan', pasteThePlan);
     context.subscriptions.push(disposable_ptp);
