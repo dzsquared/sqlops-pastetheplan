@@ -40,5 +40,10 @@
         "sqlops": "github:anthonydresser/sqlops-extension-sqlops",
         "@types/node": "^7.0.43",
         "@types/mocha": "^2.2.42"
+    },
+    "dependencies": {
+        "request": "^2.88.0",
+        "request-promise-native": "^1.0.5",
+        "clipboardy": "^1.2.3"
     }
 }
