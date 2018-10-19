@@ -13,7 +13,7 @@ From the open XML file, run either of the commands from the command pallete (`ct
 ![Open in Browser 1](https://github.com/dzsquared/sqlops-pastetheplan/raw/master/images/OpenInBrowser.gif)
 
 
-![Open in Browser 2](https://raw.githubusercontent.com/dzsquared/sqlops-pastetheplan/master/images/OpenInBrowser2.gif)
+![Open in Browser 2](https://github.com/dzsquared/sqlops-pastetheplan/raw/master/images/OpenInBrowser2.gif)
 
 
 ## Requirements

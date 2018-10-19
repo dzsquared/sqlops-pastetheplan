@@ -18,14 +18,15 @@
     "main": "./out/extension",
     "contributes": {
         "commands": [
-        {
-            "command": "extension.pastePlan",
-            "title": "Paste the Plan: Open in Browser"
-        },
-        {
-            "command": "extension.pastePlanCopy",
-            "title": "Paste the Plan: Copy Link"
-        }]
+            {
+                "command": "extension.pastePlan",
+                "title": "Paste the Plan: Open in Browser"
+            },
+            {
+                "command": "extension.pastePlanCopy",
+                "title": "Paste the Plan: Copy Link"
+            }
+        ]
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",
