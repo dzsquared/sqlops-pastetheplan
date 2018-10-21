@@ -1,5 +1,10 @@
 # Azure Data Studio - Paste the Plan Extension
 
+This extension is a connector to [Paste the Plan](http://pastetheplan.com).
+
+## Installation
+The current release is available to [download as a .vsix file](https://github.com/dzsquared/sqlops-pastetheplan/releases/download/0.2.0/pastetheplan-0.2.0.vsix) and can be installed by opening the command palette (`ctrl/command+shift+p`) and selecting `Extensions: Install from VSIX...`
+
 
 ## Features
 
@@ -31,7 +36,9 @@ Please [submit on GitHub](https://github.com/dzsquared/sqlops-pastetheplan/issue
 
 ## Release Notes
 
+### 0.2.0
+- Adds check for execution plan size <2MB
+- First release
 
 ### 0.1.0
-
-Preview version
+- Preview version

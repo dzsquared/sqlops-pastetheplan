@@ -1,8 +1,8 @@
 {
     "name": "pastetheplan",
     "displayName": "pastetheplan",
-    "description": "Paste the Plan Connector",
-    "version": "0.1.0",
+    "description": "Send XML execution plans to Paste the Plan",
+    "version": "0.2.0",
     "publisher": "drewsk",
     "engines": {
         "vscode": "^1.28.0",
@@ -43,8 +43,9 @@
         "@types/mocha": "^2.2.42"
     },
     "dependencies": {
+        "byte-length": "^1.0.2",
+        "clipboardy": "^1.2.3",
         "request": "^2.88.0",
-        "request-promise-native": "^1.0.5",
-        "clipboardy": "^1.2.3"
+        "request-promise-native": "^1.0.5"
     }
 }

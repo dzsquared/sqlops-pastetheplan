@@ -3,15 +3,21 @@ import * as vscode from 'vscode';
 import * as request from 'request-promise-native';
 import * as sqlops from 'sqlops';
 import * as clipboardy from 'clipboardy';
+import * as bytelength from 'byte-length';
 
 export function activate(context: vscode.ExtensionContext) {
 
     var pasteThePlan = async () => {
         if (vscode.window.activeTextEditor.document.languageId === 'xml') {
             var planXML = vscode.window.activeTextEditor.document.getText();
-            var planLink = await sendToPTP(planXML);
-            vscode.window.showInformationMessage('Paste the Plan window opening in your browser.');
-            vscode.commands.executeCommand('vscode.open', vscode.Uri.parse(planLink));
+            var planSize = bytelength.byteLength(planXML);
+            if (planSize < 2000000) {
+                var planLink = await sendToPTP(planXML);
+                vscode.window.showInformationMessage('Paste the Plan window opening in your browser.');
+                vscode.commands.executeCommand('vscode.open', vscode.Uri.parse(planLink));
+            } else {
+                vscode.window.showErrorMessage('Sorry, Paste the Plan has a maximum size of 2MB')
+            }
         } else {
             vscode.window.showErrorMessage('Sorry, Paste the Plan connector is supported for XML files only.');
         }
@@ -22,9 +28,14 @@ export function activate(context: vscode.ExtensionContext) {
     var pasteThePlanCopy = async () => {
         if (vscode.window.activeTextEditor.document.languageId === 'xml') {
             var planXML = vscode.window.activeTextEditor.document.getText();
-            var planLink = await sendToPTP(planXML);
-            clipboardy.write(planLink);
-            vscode.window.showInformationMessage('Paste the Plan link copied to clipboard.');
+            var planSize = bytelength.byteLength(planXML);
+            if (planSize < 2000000) {
+                var planLink = await sendToPTP(planXML);
+                clipboardy.write(planLink);
+                vscode.window.showInformationMessage('Paste the Plan link copied to clipboard.');
+            } else {
+                vscode.window.showErrorMessage('Sorry, Paste the Plan has a maximum size of 2MB')
+            }
         } else {
             vscode.window.showErrorMessage('Sorry, Paste the Plan connector is supported for XML files only.');
         }
