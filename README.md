@@ -42,3 +42,7 @@ Please [submit on GitHub](https://github.com/dzsquared/sqlops-pastetheplan/issue
 
 ### 0.1.0
 - Preview version
+
+## License
+
+This extension is released under the [MIT License](https://raw.githubusercontent.com/dzsquared/sqlops-pastetheplan/master/LICENSE).
